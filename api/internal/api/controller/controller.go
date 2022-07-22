@@ -65,9 +65,10 @@ func New() *RestApplication {
 	return &RestApplication{
 		SessionAuthGinController: *auth.NewGinSessionAuthGorm(
 			config.GetDB(),
-			"/api/v1/accounts",
-			"LINK_TO_SOCIALS_LOGIN",
+			"/api/v1",
+			"lts_login",
 			dur,
+			e.Domain,
 		),
 		Link: Link{
 			repo: mysql.NewLink(config.GetDB()),

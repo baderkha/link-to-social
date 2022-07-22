@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.44.60
-	github.com/baderkha/library v0.0.0-20220722150327-ea3b75c757f6
+	github.com/baderkha/library v0.0.0-20220722160928-a00aa0c26ae7
 	github.com/gin-gonic/gin v1.8.1
 	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.23.8
@@ -32,8 +32,8 @@ require (
 	github.com/pelletier/go-toml/v2 v2.0.2 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/wagslane/go-password-validator v0.3.0 // indirect
-	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
-	golang.org/x/net v0.0.0-20220708220712-1185a9018129 // indirect
+	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
+	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
 	golang.org/x/sys v0.0.0-20220721230656-c6bc011c0c49 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
