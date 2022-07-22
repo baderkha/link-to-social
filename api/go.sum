@@ -2,6 +2,18 @@ github.com/aws/aws-sdk-go v1.44.60 h1:KTTogelVR+4dWiIPl7eyxoxaJkziChON6/Y/hVfTip
 github.com/aws/aws-sdk-go v1.44.60/go.mod h1:y4AeaBuwd2Lk+GepC1E9v0qOiTws0MIWAX4oIKwKHZo=
 github.com/baderkha/library v0.0.0-20220722040217-dc47940f5033 h1:xEfZX2GS2nVtiUsENwJc6wugjpdIOxf1HKZu9grncCw=
 github.com/baderkha/library v0.0.0-20220722040217-dc47940f5033/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722143144-ff76049c3d00 h1:BVOYlBfDrxUG1HQXS0Mk50FGLS0QvWA1LFCl6d5brHo=
+github.com/baderkha/library v0.0.0-20220722143144-ff76049c3d00/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722143554-4843a9d964f0 h1:fqOZMBe/sVXTnii6tETFtr5gXvFew2BR0PuX7l7M1Cc=
+github.com/baderkha/library v0.0.0-20220722143554-4843a9d964f0/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722144344-a265ba38a1f7 h1:GDwEjjkpJKF/aEYtERCZDEsCoVO4ox9oa7knZxW6MMw=
+github.com/baderkha/library v0.0.0-20220722144344-a265ba38a1f7/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722145431-26e1476c6bf7 h1:LkvkkpOCk56yKRlEQXlQF2sOxwaIyK1ahoBKFRJ1WBY=
+github.com/baderkha/library v0.0.0-20220722145431-26e1476c6bf7/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722145806-2da535e43626 h1:RvpvddtXjdqSspWpgx9l1YWKeip+igqgs3LQMsM68TU=
+github.com/baderkha/library v0.0.0-20220722145806-2da535e43626/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
+github.com/baderkha/library v0.0.0-20220722150327-ea3b75c757f6 h1:tv2JED9jp960lXxmQPB7i/m4lslQ2VnSYlRI1BukViU=
+github.com/baderkha/library v0.0.0-20220722150327-ea3b75c757f6/go.mod h1:a20fyePRNg0xoKBAN2RAOThTQNe0bWrwCTyN16/A9hE=
 github.com/badoux/checkmail v1.2.1 h1:TzwYx5pnsV6anJweMx2auXdekBwGr/yt1GgalIx9nBQ=
 github.com/badoux/checkmail v1.2.1/go.mod h1:XroCOBU5zzZJcLvgwU15I+2xXyCdTWXyR9MGfRhBYy0=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
@@ -75,6 +87,7 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.7.2 h1:4jaiDzPyXQvSd7D0EjG45355tLlV3VOECpq10pLC+8s=
 github.com/stretchr/testify v1.7.2/go.mod h1:R6va5+xMeoiuVRoj+gSkQ7d3FALtqAAGI1FQKckRals=
+github.com/ugorji/go v1.2.7 h1:qYhyWUUd6WbiM+C6JZAUkIJt/1WrjzNHY9+KCIjVqTo=
 github.com/ugorji/go v1.2.7/go.mod h1:nF9osbDWLy6bDVv/Rtoh6QgnvNDpmCalQV5urGCCS6M=
 github.com/ugorji/go/codec v1.2.7 h1:YPXUKf7fYbp/y8xloBqZOw2qaVggbfwMlI8WM3wZUJ0=
 github.com/ugorji/go/codec v1.2.7/go.mod h1:WGN1fab3R1fzQlVQTkfxVtIBhWDRqOviHU95kRgeqEY=

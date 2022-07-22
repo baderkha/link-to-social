@@ -2,7 +2,9 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -12,6 +14,7 @@ import (
 	"github.com/baderkha/library/pkg/json"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 const (
@@ -56,9 +59,21 @@ func DefaultEnv() *Environ {
 
 func GetDB() *gorm.DB {
 	if dbGor == nil {
+		newLogger := logger.New(
+			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+			logger.Config{
+				SlowThreshold:             time.Second, // Slow SQL threshold
+				LogLevel:                  logger.Info, // Log level
+				IgnoreRecordNotFoundError: false,       // Ignore ErrRecordNotFound error for logger
+				Colorful:                  true,        // Disable color
+			},
+		)
+
 		dsn := db.GetDSN(db.DialectMYSQL, Env.DBHost, Env.DBUserName, Env.DBPassword, Env.DBPort, Env.DBSchema, "utf8mb4&parseTime=True&loc=Local")
 		fmt.Println(dsn)
-		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+			Logger: newLogger,
+		})
 		if err != nil {
 			panic(err)
 		}

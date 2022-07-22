@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"errors"
 	"link-to-social-api/internal/api/model"
 	"link-to-social-api/internal/api/repo"
 	"net/http"
@@ -17,7 +18,7 @@ func (p *Page) getMainPage(accountID string) (*model.Page, error) {
 	sort, _ := rql.SortExpressionFromUserInput("updated_at::DESC")
 	res, err := p.repo.GetWithFilterExpression(
 		&rql.FilterExpression{
-			BinaryOperation: "and",
+			BinaryOperation: "AND",
 			Properties: []*rql.FilterExpression{
 				{
 					Column: "account_id",
@@ -40,6 +41,8 @@ func (p *Page) getMainPage(accountID string) (*model.Page, error) {
 	)
 	if err != nil {
 		return nil, err
+	} else if len(res) == 0 {
+		return nil, errors.New("could not find main page")
 	}
 	return res[0], nil
 }

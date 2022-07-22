@@ -27,22 +27,26 @@ type RestApplication struct {
 
 type HTTPResponse[t any] struct {
 	Data          t      `json:"data"`
-	ErrorMessage  error  `json:"error_message"`
+	ErrorMessage  string `json:"error_message"`
 	ServerMessage string `json:"server_message"`
 }
 
 func NewResponse[t any](item t) *HTTPResponse[t] {
 	return &HTTPResponse[t]{
 		Data:          item,
-		ErrorMessage:  nil,
+		ErrorMessage:  "",
 		ServerMessage: "ok",
 	}
 }
 
 func NewErrorResponse(err error) *HTTPResponse[any] {
+	var errMessage string
+	if err != nil {
+		errMessage = err.Error()
+	}
 	return &HTTPResponse[any]{
 		Data:          nil,
-		ErrorMessage:  err,
+		ErrorMessage:  errMessage,
 		ServerMessage: "error",
 	}
 }
