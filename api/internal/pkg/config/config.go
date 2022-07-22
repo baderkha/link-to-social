@@ -1,8 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/baderkha/library/pkg/conditional"
 	"github.com/baderkha/library/pkg/db"
 	"github.com/baderkha/library/pkg/json"
@@ -19,6 +23,8 @@ var (
 	Env Environ
 
 	dbGor *gorm.DB
+
+	S3 *s3.S3
 )
 
 // Environ : config that mimics hte schema of the env json
@@ -32,9 +38,12 @@ type Environ struct {
 	DBPasswordFromSecrets       bool   `json:"is_db_password_from_secrets"`
 	Domain                      string `json:"domain"`
 	CookieExpiryDurationMinutes int64  `json:"cookie_expiry_time_minutes"`
+	S3Bucket                    string `json:"bucket"`
+	HTTPPort                    string `json:"http_port"`
+	AWSRegion                   string `json:"aws_region"`
 }
 
-func init() {
+func Init() {
 	envFile := os.Getenv("ENV_FILE")
 	filePath := conditional.Ternary(envFile != "", envFile, DefaultConfigPath)
 	cfg := json.MustReadJSONFromFile[Environ](filePath)
@@ -47,11 +56,31 @@ func DefaultEnv() *Environ {
 
 func GetDB() *gorm.DB {
 	if dbGor == nil {
-		db, err := gorm.Open(mysql.Open(db.GetDSN(db.DialectMYSQL, Env.DBHost, Env.DBUserName, Env.DBPassword, Env.DBPort, Env.DBSchema)), &gorm.Config{})
+		dsn := db.GetDSN(db.DialectMYSQL, Env.DBHost, Env.DBUserName, Env.DBPassword, Env.DBPort, Env.DBSchema, "utf8mb4&parseTime=True&loc=Local")
+		fmt.Println(dsn)
+		db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {
 			panic(err)
 		}
 		dbGor = db
 	}
 	return dbGor
+}
+
+func GetS3() *s3.S3 {
+	if S3 == nil {
+		sess, err := session.NewSession(&aws.Config{
+			Region: &Env.AWSRegion},
+		)
+
+		if err != nil {
+			panic(err)
+		}
+
+		// Create S3 service client
+		svc := s3.New(sess)
+		S3 = svc
+	}
+
+	return S3
 }

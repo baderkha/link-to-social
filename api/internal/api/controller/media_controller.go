@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"link-to-social-api/internal/api/model"
 	"link-to-social-api/internal/api/repo"
-	"link-to-social-api/internal/api/repo/mysql"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -17,39 +15,19 @@ import (
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/baderkha/library/pkg/store/repository"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 var (
-	SupportedMediaTypes = []string{
-		"png", "jpg", "jpeg", "webp", "tiff", // photo
-		"mp4", "webm", // video
-		"pdf", "txt", // regular files
+	SupportedMediaTypes = map[string][]string{
+		"image": {"png", "jpg", "jpeg", "webp", "tiff"}, // photo
+		"video": {"mp4", "webm"},                        // video
+		"pdf":   {"pdf", "txt"},                         // regular files
 	}
-	SupportedMediaTypesFlat       = strings.Join(SupportedMediaTypes, ",")
-	errorUnsupportedFileExtension = errors.New("File Type input is not supported , your file types must be either of the following " + SupportedMediaTypesFlat)
+	SupportedMediaTypesFlat       = func(typ string) string { return strings.Join(SupportedMediaTypes[typ], ",") }
+	errorUnsupportedFileExtension = func(typ string) error {
+		return errors.New("File Type input is not supported , your file types must be either of the following " + SupportedMediaTypesFlat(typ))
+	}
 )
-
-func NewImageController(db *gorm.DB) Media {
-	os.Setenv("MEIDA_TABLE_NAME", "image")
-	return Media{
-		mRepo: mysql.NewMedia(db),
-	}
-}
-
-func NewVideoMedia(db *gorm.DB) Media {
-	os.Setenv("MEIDA_TABLE_NAME", "video")
-	return Media{
-		mRepo: mysql.NewMedia(db),
-	}
-}
-
-func NewFileMedia(db *gorm.DB) Media {
-	os.Setenv("MEIDA_TABLE_NAME", "file")
-	return Media{
-		mRepo: mysql.NewMedia(db),
-	}
-}
 
 type UploadInput struct {
 	FileExtension string `json:"file_extension" binding:"required"`
@@ -81,14 +59,14 @@ func (m *Media) GenerateS3Upload(ctx *gin.Context) {
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
 		return
-	} else if !strings.Contains(SupportedMediaTypesFlat, u.FileExtension) {
-		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(errorUnsupportedFileExtension))
+	} else if !strings.Contains(SupportedMediaTypesFlat(m.typ), u.FileExtension) {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(errorUnsupportedFileExtension(m.typ)))
 		return
 	}
 	tx := m.tx.Begin()
 	repo := m.mRepo.WithTransaction(tx)
 
-	media.Location = fmt.Sprintf("%s/%s/%s", m.typ, GetAccountId(ctx), media.ID+"."+u.FileExtension)
+	media.Location = fmt.Sprintf("%s/%s/%s/%s", m.s3Prefix, m.typ, GetAccountId(ctx), media.ID+"."+u.FileExtension)
 	err = repo.Create(&media)
 	if err != nil {
 		tx.RollBack()
