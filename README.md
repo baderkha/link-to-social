@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/baderkha/link-to-social/blob/main/api/assets/images/logo.png?raw=true">
+</p>
+
 # linkToSocial
 link to social project (front end and backend) Solutions that strives to be self hosted as well as a cloud option for people . 
 
