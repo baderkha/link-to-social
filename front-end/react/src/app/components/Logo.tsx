@@ -1,7 +1,7 @@
 import React from "react"
 
 const sizes = {
-  small :"128",
+  small :"144",
   large : "256",
   full :""
 }

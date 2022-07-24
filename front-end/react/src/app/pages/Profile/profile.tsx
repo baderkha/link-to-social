@@ -11,6 +11,13 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import CloseIcon from '@material-ui/icons/Close'
 import { IconButton } from '@material-ui/core';
 import { Logo } from 'app/components/Logo';
+import DateFnsUtils from '@date-io/date-fns';
+
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
 const noop = () => { }
@@ -31,6 +38,45 @@ function RegisterView() {
 
     return (
         <div>
+            <FormControl fullWidth={true} style={{ display: "flex" }}>
+                <div>
+                    <InputLabel htmlFor="first-name" color="secondary">First Name</InputLabel>
+                    <Input id="user-name" aria-describedby="first-name-text" fullWidth placeholder="zoomer_humor_96" />
+                    <FormHelperText id="first-name-text">Your name</FormHelperText>
+                </div>
+
+
+            </FormControl>
+            <FormControl fullWidth={true} style={{ display: "flex" }}>
+                <div>
+                    <InputLabel htmlFor="last-name" color="secondary">Last Name</InputLabel>
+                    <Input id="last-name" aria-describedby="first-name-text" fullWidth placeholder="zoomer_humor_96" />
+                    <FormHelperText id="last-name-text">Your Last Name</FormHelperText>
+                </div>
+
+
+            </FormControl>
+            <FormControl fullWidth={true} style={{ display: "flex" }}>
+                <div>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            margin="normal"
+                            color="secondary"
+                            fullWidth
+                            id="date-picker-dialog"
+                            label="Birth Date"
+                            format="MM/dd/yyyy"
+                            value={"12/26/1997"}
+                            onChange={noop}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        />
+                    </MuiPickersUtilsProvider>
+                </div>
+
+
+            </FormControl>
             <FormControl fullWidth={true} style={{ display: "flex" }}>
                 <div>
                     <InputLabel htmlFor="user-name" color="secondary">User Name</InputLabel>
@@ -151,7 +197,7 @@ function TabsWrappedLabel({ onChangeTabs = noopArgs }) {
 
 export default function Login() {
     const [open, setOpen] = React.useState(true);
-    const [page , setPage] = React.useState("login")
+    const [page, setPage] = React.useState("login")
 
     const handleOpen = () => {
         setOpen(true);
@@ -183,7 +229,7 @@ export default function Login() {
 
                     </div>
                     <TabsWrappedLabel onChangeTabs={handleTabChange}></TabsWrappedLabel>
-                    {page == "login" ? <LoginView/> : <RegisterView/>}
+                    {page == "login" ? <LoginView /> : <RegisterView />}
 
                 </Box>
 

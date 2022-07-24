@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Container, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Page from './pages/Page/page';
 import { SelenaDummyLinks } from './pages/Page/page';
+import { Logo } from './components/Logo';
+import {RemoveScrollBar} from 'react-remove-scroll-bar';
+
 export const theme = createMuiTheme({
   palette: {
     type: 'dark',
@@ -32,7 +35,7 @@ export const App: FC<any> = (props) => {
         <Router>
           <div>
             <NavBar></NavBar>
-            <div style={{ marginTop: "75px" }}>
+            <div style={{ marginTop: "55px" ,  minHeight:"85vh" }}>
               <Routes>
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/:id" element={<Page {...SelenaDummyLinks} />} />
@@ -41,7 +44,19 @@ export const App: FC<any> = (props) => {
             </div>
           </div>
         </Router>
+        <footer style={{
+        textAlign: "center",
+        bottom: "0",
+        width: "100%",
+        display: "flex", justifyContent: "center"
+      }}>
+        <div style={{marginBottom: "15px" }}>
+          <Logo size="small" ></Logo>
+        </div>
+      </footer>
       </Container>
+      
     </ThemeProvider>
+
   )
 }

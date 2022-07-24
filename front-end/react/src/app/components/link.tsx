@@ -1,4 +1,4 @@
-import { Avatar, Button } from "@material-ui/core"
+import { Avatar, Button, Typography } from "@material-ui/core"
 import React from "react"
 import { makeStyles, withStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
@@ -21,7 +21,10 @@ const styles =  makeStyles({
         root:{
             color: "black",
             backgroundColor:"#F9F7F6",
-            textTransform:"none"
+            textTransform:"none",
+            '&:hover': {
+                backgroundColor: '#eae4e4',
+            },
            
         }
     
@@ -39,9 +42,10 @@ export const Link = (l: LinkProp) => {
         <Button  variant="contained"
         disableElevation = {true}
         className = {classes.root}
+        
        
          startIcon={<Avatar variant="square" src={thumbUrl}
-          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none"  , color:"white"  }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none"}}>{label}</Button>
+          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none"  , color:"white"  }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none"}}><Typography style={{marginLeft:"-48px"}}> {label} </Typography></Button>
         </div>
     )   
 }

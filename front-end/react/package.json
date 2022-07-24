@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "1.x",
     "@material-ui/core": "4.12.4",
     "@material-ui/icons": "4.11.3",
+    "@material-ui/pickers": "3.3.10",
     "@reduxjs/toolkit": "1.7.1",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
@@ -24,6 +26,7 @@
     "@types/webpack-env": "1.16.3",
     "chalk": "4.1.2",
     "cross-env": "7.0.3",
+    "date-fns": "2.29.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react-hooks": "4.3.0",
@@ -48,6 +51,7 @@
     "react-i18next": "11.16.5",
     "react-is": "18.1.0",
     "react-redux": "7.2.6",
+    "react-remove-scroll-bar": "2.3.3",
     "react-router-dom": "6.3.0",
     "react-scripts": "5.0.1",
     "react-test-renderer": "18.1.0",
@@ -80,8 +84,7 @@
     "lint:css": "stylelint src/**/*.css",
     "generate": "plop --plopfile internals/generators/plopfile.ts",
     "prettify": "prettier --write",
-    "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js",
-    "prepare": "husky install"
+    "extract-messages": "i18next-scanner --config=internals/extractMessages/i18next-scanner.config.js"
   },
   "browserslist": {
     "production": [
