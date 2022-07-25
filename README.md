@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="https://github.com/baderkha/link-to-social/blob/main/api/assets/images/logo.png?raw=true">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://github.com/baderkha/link-to-social/blob/main/front-end/react/public/logo_inverted_col.png">
+ <img src="https://github.com/baderkha/link-to-social/blob/main/api/assets/images/logo.png?raw=true">
+   
+</picture>
 </p>
 
 # linkToSocial
