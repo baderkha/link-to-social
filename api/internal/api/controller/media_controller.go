@@ -21,7 +21,7 @@ var (
 	SupportedMediaTypes = map[string][]string{
 		"image": {"png", "jpg", "jpeg", "webp", "tiff"}, // photo
 		"video": {"mp4", "webm"},                        // video
-		"pdf":   {"pdf", "txt"},                         // regular files
+		"file":  {"pdf", "txt"},                         // regular files
 	}
 	SupportedMediaTypesFlat       = func(typ string) string { return strings.Join(SupportedMediaTypes[typ], ",") }
 	errorUnsupportedFileExtension = func(typ string) error {

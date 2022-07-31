@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"errors"
 	"link-to-social-api/internal/api/model"
 	"link-to-social-api/internal/api/repo"
 	"net/http"
 
+	"github.com/baderkha/library/pkg/conditional"
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +16,11 @@ type Link struct {
 }
 
 func (l *Link) GetLinksForPage(ctx *gin.Context) {
-	pageId := ctx.Param("id")
+	pageId := conditional.Ternary(ctx.Param("id") == "", ctx.Param("id"), ctx.Query("page_id"))
+	if pageId == "" {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(errors.New("expected an id in the route or a page_id query parameter")))
+		return
+	}
 	links, err := l.repo.GetWithFilterExpression(
 		&rql.FilterExpression{
 			Column:          "page_id",

@@ -33,13 +33,16 @@ func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
 		pagePublic.GET("/:id", c.GetPageById)
 		pagePublic.GET("/:id/links", c.GetLinksForPage)
 		pagePrivate.POST("", c.NewPage)
+		pagePrivate.GET("/_mainpage", c.GetMainPage)
 		pagePrivate.PATCH("/:id", c.UpdatePage)
+		pagePrivate.POST("/:id/_make_main_page", c.MakePageMain)
 		pagePrivate.DELETE("/:id", c.DeletePage)
 
 	}
 
 	// links
 	{
+		linkPublic.GET("", c.GetLinksForPage)
 		linkPublic.GET("/:id", c.GetLinkById)
 		linkPrivate.POST("", c.NewLink)
 		linkPrivate.PATCH("/:id", c.UpdateLink)

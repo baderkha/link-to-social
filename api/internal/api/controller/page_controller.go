@@ -6,6 +6,7 @@ import (
 	"link-to-social-api/internal/api/repo"
 	"net/http"
 
+	"github.com/baderkha/library/pkg/conditional"
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/gin-gonic/gin"
 )
@@ -48,7 +49,12 @@ func (p *Page) getMainPage(accountID string) (*model.Page, error) {
 }
 
 func (p *Page) GetMainPage(ctx *gin.Context) {
-	accountId := ctx.Param("id")
+	accId := ctx.Param("id")
+	accountId := conditional.Ternary(accId != "", accId, ctx.Query("account_id=?"))
+	if accountId == "" {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(errors.New("expected an account in the route or a page_id query parameter")))
+		return
+	}
 	res, err := p.getMainPage(accountId)
 	if err != nil || res == nil {
 		ctx.AbortWithStatusJSON(http.StatusNotFound, NewErrorResponse(err))

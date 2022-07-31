@@ -1,3 +1,6 @@
+install:
+	go get ./...
+	
 shutdown-db:
 	cd docker && docker-compose down
 init-db:

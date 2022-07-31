@@ -3,6 +3,7 @@ package controller
 import (
 	"errors"
 	"link-to-social-api/internal/api/repo/mysql"
+	"link-to-social-api/internal/api/service"
 	"link-to-social-api/internal/pkg/config"
 	"time"
 
@@ -10,6 +11,8 @@ import (
 	"github.com/baderkha/library/pkg/store/repository"
 	"github.com/gin-gonic/gin"
 )
+
+
 
 var (
 	errorResourceNotForUser = errors.New("One of the resource or resources you're attempting to change is not for you !!")
@@ -50,6 +53,8 @@ func NewErrorResponse(err error) *HTTPResponse[any] {
 		ServerMessage: "error",
 	}
 }
+
+func HandleError(err error) *HTTPResponse[]
 
 func GetAccountId(ctx *gin.Context) string {
 	acc, exists := ctx.Get("account_id")
