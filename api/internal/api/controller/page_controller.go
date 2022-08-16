@@ -69,10 +69,6 @@ func (p *Page) GetPageById(ctx *gin.Context) {
 
 func (p *Page) MakePageMain(ctx *gin.Context) {
 	id := ctx.Param("id")
-	if !p.repo.IsForAccountID(id, GetAccountId(ctx)) {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, NewErrorResponse(errorResourceNotForUser))
-		return
-	}
 
 	page, err := p.repo.GetById(id)
 	if err != nil {
@@ -80,6 +76,7 @@ func (p *Page) MakePageMain(ctx *gin.Context) {
 		return
 	}
 	page.IsMainPage = true
+	page.IsViewable = true
 	err = p.repo.Update(page)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(err))
@@ -95,6 +92,8 @@ func (p *Page) NewPage(ctx *gin.Context) {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
 		return
 	}
+	page.AccountID = GetAccountId(ctx)
+	page.New()
 	err = p.repo.Create(&page)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(err))
@@ -105,10 +104,7 @@ func (p *Page) NewPage(ctx *gin.Context) {
 
 func (p *Page) UpdatePage(ctx *gin.Context) {
 	id := ctx.Param("id")
-	if !p.repo.IsForAccountID(id, GetAccountId(ctx)) {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, NewErrorResponse(errorResourceNotForUser))
-		return
-	}
+
 	var page model.Page
 	err := ctx.ShouldBindJSON(&page)
 	if err != nil {
@@ -126,10 +122,6 @@ func (p *Page) UpdatePage(ctx *gin.Context) {
 
 func (p *Page) DeletePage(ctx *gin.Context) {
 	id := ctx.Param("id")
-	if !p.repo.IsForAccountID(id, GetAccountId(ctx)) {
-		ctx.AbortWithStatusJSON(http.StatusForbidden, NewErrorResponse(errorResourceNotForUser))
-		return
-	}
 	err := p.repo.DeleteById(id)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(err))

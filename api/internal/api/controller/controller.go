@@ -2,27 +2,47 @@ package controller
 
 import (
 	"errors"
+	"fmt"
 	"link-to-social-api/internal/api/repo/mysql"
 	"link-to-social-api/internal/pkg/config"
+	"net/http"
 	"time"
 
 	"github.com/baderkha/library/pkg/controller/gin/auth"
+	"github.com/baderkha/library/pkg/rql"
 	"github.com/baderkha/library/pkg/store/repository"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 )
 
+const (
+	maxPaginationSize = 40
+)
+
 var (
-	errorResourceNotForUser = errors.New("One of the resource or resources you're attempting to change is not for you !!")
+	errorResourceNotForUser        = errors.New("One of the resource or resources you're attempting to change is not for you !! Or You've already deleted this resource")
+	errorExceededMaxPaginationSize = fmt.Errorf("Pagination size cannot exceed %d records per request", maxPaginationSize)
 )
 
 // RestApplication : rest application with all http handlers
 type RestApplication struct {
+
+	// Auth Controller for Login / Logout
 	auth.SessionAuthGinController
+
+	// Regular Controller Block
 	Link
 	Page
 	Images Media
 	Videos Media
 	Files  Media
+
+	// Is For Account Block // put all the handler functions here
+	IsLinkForAccount  gin.HandlerFunc
+	IsPageForAccount  gin.HandlerFunc
+	IsImageForAccount gin.HandlerFunc
+	IsFileForAccount  gin.HandlerFunc
+	IsVideoForAccount gin.HandlerFunc
 }
 
 type HTTPResponse[t any] struct {
@@ -59,9 +79,44 @@ func GetAccountId(ctx *gin.Context) string {
 	return acc.(string)
 }
 
+func GetExpressions(ctx *gin.Context) (*rql.FilterExpression, *rql.PaginationExpression, *rql.SortExpression, bool) {
+
+	filterString := ctx.Query("filters")
+	isFilterBase64 := ctx.Query("filter_is_base64") == "1"
+	p := ctx.Query("page")
+	s := ctx.Query("size")
+	sort := ctx.Query("sort")
+
+	filterExpr, err := rql.FilterExpressionFromUserInput(filterString, isFilterBase64)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
+		spew.Dump(err)
+		return nil, nil, nil, false
+	}
+
+	paginationExpr, err := rql.PaginationExpressionFromUserInput(p, s)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
+		return nil, nil, nil, false
+	} else if paginationExpr.Size() > maxPaginationSize {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(errorExceededMaxPaginationSize))
+		return nil, nil, nil, false
+	}
+
+	sortExpr, err := rql.SortExpressionFromUserInput(sort)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
+		spew.Dump(err)
+		return nil, nil, nil, false
+	}
+
+	return filterExpr, paginationExpr, sortExpr, true
+}
+
 func New() *RestApplication {
 	e := config.DefaultEnv()
 	dur := time.Duration(e.CookieExpiryDurationMinutes) * time.Minute
+
 	return &RestApplication{
 		SessionAuthGinController: *auth.NewGinSessionAuthGorm(
 			config.GetDB(),
@@ -106,5 +161,10 @@ func New() *RestApplication {
 				DB: config.GetDB(),
 			},
 		},
+		IsLinkForAccount:  IsLinkForAccount,
+		IsPageForAccount:  IsPageForAccount,
+		IsImageForAccount: IsImageForAccount,
+		IsFileForAccount:  IsFileForAccount,
+		IsVideoForAccount: IsVideoForAccount,
 	}
 }

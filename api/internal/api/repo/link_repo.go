@@ -11,6 +11,10 @@ var (
 	_ ILink = &mysql.LinkMYSQL{}
 )
 
+const (
+	Link = "link_repository"
+)
+
 // ILink : link repository
 type ILink interface {
 	repository.ICrud[model.Link]

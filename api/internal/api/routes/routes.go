@@ -33,8 +33,9 @@ func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
 		pagePublic.GET("/:id", c.GetPageById)
 		pagePublic.GET("/:id/links", c.GetLinksForPage)
 		pagePrivate.POST("", c.NewPage)
-		pagePrivate.PATCH("/:id", c.UpdatePage)
-		pagePrivate.DELETE("/:id", c.DeletePage)
+		pagePrivate.PATCH("/:id", c.IsPageForAccount, c.UpdatePage)
+		pagePrivate.PATCH("/:id/_make_main", c.IsPageForAccount, c.MakePageMain)
+		pagePrivate.DELETE("/:id", c.IsPageForAccount, c.DeletePage)
 
 	}
 
@@ -42,8 +43,8 @@ func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
 	{
 		linkPublic.GET("/:id", c.GetLinkById)
 		linkPrivate.POST("", c.NewLink)
-		linkPrivate.PATCH("/:id", c.UpdateLink)
-		linkPrivate.DELETE("/:id", c.DeleteLink)
+		linkPrivate.PATCH("/:id", c.IsLinkForAccount, c.UpdateLink)
+		linkPrivate.DELETE("/:id", c.IsLinkForAccount, c.DeleteLink)
 	}
 
 	account := apiv1.Group("accounts")
@@ -55,6 +56,8 @@ func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
 	// media
 
 	{
+		imagesPublic.GET("/_paginated", c.Images.GetAllMedias)
+		videoPublic.GET("/_paginated", c.Videos.GetAllMedias)
 		imagesPublic.GET("", c.Images.GetMediaByIds)
 		videoPublic.GET("", c.Videos.GetMediaByIds)
 		filePublic.GET("", c.Files.GetMediaByIds)
@@ -63,9 +66,9 @@ func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
 		videoPrivate.POST("", c.Videos.GenerateS3Upload)
 		filePrivate.POST("", c.Files.GenerateS3Upload)
 
-		imagesPrivate.DELETE("", c.Images.BulkDeleteMedias)
-		videoPrivate.DELETE("", c.Videos.BulkDeleteMedias)
-		filePrivate.DELETE("", c.Files.BulkDeleteMedias)
+		imagesPrivate.DELETE("", c.IsImageForAccount, c.Images.BulkDeleteMedias)
+		videoPrivate.DELETE("", c.IsVideoForAccount, c.Videos.BulkDeleteMedias)
+		filePrivate.DELETE("", c.IsFileForAccount, c.Files.BulkDeleteMedias)
 
 	}
 

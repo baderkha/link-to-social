@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.44.60
-	github.com/baderkha/library v0.0.0-20220722160928-a00aa0c26ae7
+	github.com/baderkha/library v0.0.0-20220816130944-ccafd940bac2
 	github.com/gin-gonic/gin v1.8.1
 	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.23.8
@@ -38,4 +38,5 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gorm.io/datatypes v1.0.7 // indirect
 )

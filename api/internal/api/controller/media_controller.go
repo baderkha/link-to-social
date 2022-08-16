@@ -192,3 +192,20 @@ func (m *Media) GetMediaByIds(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, medias)
 }
+
+func (m *Media) GetAllMedias(ctx *gin.Context) {
+	filterExpr, paginationExpr, sortExpr, isOk := GetExpressions(ctx)
+	if !isOk {
+		return
+	}
+	medias, err := m.mRepo.GetAllNonPrivateMediaPaginatedWithFilterExpression(
+		filterExpr,
+		paginationExpr,
+		sortExpr,
+	)
+	if err != nil {
+		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(err))
+		return
+	}
+	ctx.JSON(http.StatusOK, medias)
+}

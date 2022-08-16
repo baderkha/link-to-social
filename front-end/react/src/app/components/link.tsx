@@ -44,8 +44,8 @@ export const Link = (l: LinkProp) => {
         className = {classes.root}
         
        
-         startIcon={<Avatar variant="square" src={thumbUrl}
-          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none"  , color:"white"  }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none"}}><Typography style={{marginLeft:"-48px"}}> {label} </Typography></Button>
+         startIcon={<Avatar variant="square" src={thumbUrl} draggable 
+          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none"    }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none"}}><Typography style={{marginLeft:"-48px"}}> {label} </Typography></Button>
         </div>
     )   
 }
@@ -54,7 +54,7 @@ export const LinkCollection = (l: LinkCollectionProp) => {
     let {height , links , width} = l
     return (
         <div style={{width , height }}>
-            {links.map((linkProp) => Link(linkProp))}
+            {links.map((linkProp) => <Link {...linkProp}/>)}
         </div>
     )
 }

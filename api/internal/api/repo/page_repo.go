@@ -11,6 +11,10 @@ var (
 	_ IPage = &mysql.PageMYSQL{}
 )
 
+const (
+	Page = "page_repository"
+)
+
 // Page : page repository specification
 type IPage interface {
 	repository.ICrud[model.Page]

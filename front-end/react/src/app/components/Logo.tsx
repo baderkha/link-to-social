@@ -9,7 +9,7 @@ const sizes = {
 
 export const Logo = ({size , white_color = false }) => {
     const clickHandler = ()=> {
-        alert("clicked")
+        window.location.href = "http://localhost:3000/"
     }
 
     const src = !white_color ? "/logo.png" : "/logo_inverted_col.png";

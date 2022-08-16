@@ -38,23 +38,24 @@ function RegisterView() {
 
     return (
         <div>
+           
+          
             <FormControl fullWidth={true} style={{ display: "flex" }}>
                 <div>
-                    <InputLabel htmlFor="first-name" color="secondary">First Name</InputLabel>
-                    <Input id="user-name" aria-describedby="first-name-text" fullWidth placeholder="zoomer_humor_96" />
-                    <FormHelperText id="first-name-text">Your name</FormHelperText>
+                    <InputLabel htmlFor="user-name" color="secondary">User Name</InputLabel>
+                    <Input id="user-name" aria-describedby="user-name-text" fullWidth placeholder="zoomer_humor_96" />
+                    <FormHelperText id="user-name-text">Enter Something Cool</FormHelperText>
                 </div>
 
 
             </FormControl>
+
             <FormControl fullWidth={true} style={{ display: "flex" }}>
                 <div>
-                    <InputLabel htmlFor="last-name" color="secondary">Last Name</InputLabel>
-                    <Input id="last-name" aria-describedby="first-name-text" fullWidth placeholder="zoomer_humor_96" />
-                    <FormHelperText id="last-name-text">Your Last Name</FormHelperText>
+                    <InputLabel htmlFor="password" color="secondary">Email</InputLabel>
+                    <Input id="password" aria-describedby="password-text" fullWidth placeholder="ahmad@linktosocials.com" />
+                    <FormHelperText id="password-text" >Enter a Valid Email</FormHelperText>
                 </div>
-
-
             </FormControl>
             <FormControl fullWidth={true} style={{ display: "flex" }}>
                 <div>
@@ -77,23 +78,6 @@ function RegisterView() {
 
 
             </FormControl>
-            <FormControl fullWidth={true} style={{ display: "flex" }}>
-                <div>
-                    <InputLabel htmlFor="user-name" color="secondary">User Name</InputLabel>
-                    <Input id="user-name" aria-describedby="user-name-text" fullWidth placeholder="zoomer_humor_96" />
-                    <FormHelperText id="user-name-text">Enter Something Cool</FormHelperText>
-                </div>
-
-
-            </FormControl>
-
-            <FormControl fullWidth={true} style={{ display: "flex" }}>
-                <div>
-                    <InputLabel htmlFor="password" color="secondary">Email</InputLabel>
-                    <Input id="password" aria-describedby="password-text" fullWidth placeholder="ahmad@linktosocials.com" />
-                    <FormHelperText id="password-text" >Enter a Valid Email</FormHelperText>
-                </div>
-            </FormControl>
 
             <FormControl fullWidth={true} style={{ display: "flex" }}>
                 <div>
@@ -102,7 +86,7 @@ function RegisterView() {
                     <FormHelperText id="password-text">Enter a random password , no rules , just random long and difficult....</FormHelperText>
                 </div>
             </FormControl>
-
+            
             <FormControl fullWidth={true} >
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "10" }}>
                     <Button color="secondary">Sign Up</Button>
@@ -212,7 +196,6 @@ export default function Login() {
 
     return (
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -220,7 +203,7 @@ export default function Login() {
                 aria-describedby="parent-modal-description"
             >
 
-                <Box sx={{ ...style, width: 400 }}>
+                <Box sx={{ ...style, width: window.screen.availWidth > 500 ? "550px"  : `${window.screen.availWidth - 50}px` }}>
                     <div style={{ display: "flex", justifyContent: "end" }}>
                         <IconButton onClick={handleClose} children={<CloseIcon color={"error"} />}></IconButton>
                     </div>

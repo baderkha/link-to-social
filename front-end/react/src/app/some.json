@@ -1,0 +1,10 @@
+{
+    "operation": "AND",
+    "properties": [
+        {
+            "column": "account_id",
+            "op": "eq",
+            "value": "ahmad.baderkhan"
+        }
+    ]
+}

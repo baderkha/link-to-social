@@ -28,6 +28,8 @@ var (
 	dbGor *gorm.DB
 
 	S3 *s3.S3
+
+	IsInit bool
 )
 
 // Environ : config that mimics hte schema of the env json
@@ -47,10 +49,13 @@ type Environ struct {
 }
 
 func Init() {
-	envFile := os.Getenv("ENV_FILE")
-	filePath := conditional.Ternary(envFile != "", envFile, DefaultConfigPath)
-	cfg := json.MustReadJSONFromFile[Environ](filePath)
-	Env = cfg
+	if !IsInit {
+		envFile := os.Getenv("ENV_FILE")
+		filePath := conditional.Ternary(envFile != "", envFile, DefaultConfigPath)
+		cfg := json.MustReadJSONFromFile[Environ](filePath)
+		Env = cfg
+		IsInit = true
+	}
 }
 
 func DefaultEnv() *Environ {
@@ -59,6 +64,7 @@ func DefaultEnv() *Environ {
 
 func GetDB() *gorm.DB {
 	if dbGor == nil {
+		Init()
 		newLogger := logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 			logger.Config{
@@ -84,6 +90,7 @@ func GetDB() *gorm.DB {
 
 func GetS3() *s3.S3 {
 	if S3 == nil {
+		Init()
 		sess, err := session.NewSession(&aws.Config{
 			Region: &Env.AWSRegion},
 		)
