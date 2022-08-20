@@ -52,6 +52,8 @@ type Environ struct {
 	AWSRegion                      string `json:"aws_region"`
 	SendGridAPIToken               string `json:"send_grid_api_token"`
 	SendGridEmail                  string `json:"send_grid_email"`
+	ResetEmailTemplateLoc          string `json:"reset_email_template_location"`
+	VerifyAccountTemplateLoc       string `json:"verify_account_template_location"`
 	GoogleClientID                 string `json:"google_client_id"`
 }
 
@@ -67,6 +69,15 @@ func Init() {
 
 func DefaultEnv() *Environ {
 	return &Env
+}
+
+func GetEmailTemplate(typ string) []byte {
+	Init()
+	b, err := os.ReadFile(conditional.Ternary(typ == "verify", Env.VerifyAccountTemplateLoc, Env.ResetEmailTemplateLoc))
+	if err != nil {
+		panic(err)
+	}
+	return b
 }
 
 func GetDB() *gorm.DB {

@@ -136,8 +136,11 @@ func New() *RestApplication {
 				Mailer:                    email.NewSendGridSender(e.SendGridAPIToken),
 				EmailSender:               e.SendGridEmail,
 				EmailSenderUserFriendly:   "Link To Socials",
+				ResetPasswordTemplateHTML: config.GetEmailTemplate("reset"),
+				VerifyAccountTemplateHTML: config.GetEmailTemplate("verify"),
 			},
 		),
+
 		Link: Link{
 			repo: sql.NewLink(config.GetDB()),
 		},

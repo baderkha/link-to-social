@@ -91,6 +91,12 @@ github.com/baderkha/library v0.0.0-20220820122843-87061bbf5a0c h1:eLK/EXIQtAzwim
 github.com/baderkha/library v0.0.0-20220820122843-87061bbf5a0c/go.mod h1:F6LHNuWL/A2rLWzxTLU2s3FS7NHxXxsPJ001YlKfehY=
 github.com/baderkha/library v0.0.0-20220820170902-1f0693a17f75 h1:DDXby82F7pfTbw9gs7FiEe9ofa/KHLR13k+oc8N4JVo=
 github.com/baderkha/library v0.0.0-20220820170902-1f0693a17f75/go.mod h1:F6LHNuWL/A2rLWzxTLU2s3FS7NHxXxsPJ001YlKfehY=
+github.com/baderkha/library v0.0.0-20220820181044-7b4eebcf41de h1:6csWn0yIkofj8VzqrYdpNO6FVoIbKm5xytKXZeiXIak=
+github.com/baderkha/library v0.0.0-20220820181044-7b4eebcf41de/go.mod h1:F6LHNuWL/A2rLWzxTLU2s3FS7NHxXxsPJ001YlKfehY=
+github.com/baderkha/library v0.0.0-20220820182549-137b6612ccf3 h1:Z0GLQmBpfxDZwxyhdkcmWJwDWhPI50QGnKlQemQV89I=
+github.com/baderkha/library v0.0.0-20220820182549-137b6612ccf3/go.mod h1:F6LHNuWL/A2rLWzxTLU2s3FS7NHxXxsPJ001YlKfehY=
+github.com/baderkha/library v0.0.0-20220820182850-cd39086944d3 h1:ZP3E81cSKnvrORxwUr65Kc9N6Z99mVJT2R7g9xw202g=
+github.com/baderkha/library v0.0.0-20220820182850-cd39086944d3/go.mod h1:F6LHNuWL/A2rLWzxTLU2s3FS7NHxXxsPJ001YlKfehY=
 github.com/badoux/checkmail v1.2.1 h1:TzwYx5pnsV6anJweMx2auXdekBwGr/yt1GgalIx9nBQ=
 github.com/badoux/checkmail v1.2.1/go.mod h1:XroCOBU5zzZJcLvgwU15I+2xXyCdTWXyR9MGfRhBYy0=
 github.com/cockroachdb/apd v1.1.0/go.mod h1:8Sl8LxpKi29FqWXR16WEFZRNSz3SoPzUzeMeY4+DwBQ=
