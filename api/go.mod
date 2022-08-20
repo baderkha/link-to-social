@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aws/aws-sdk-go v1.44.60
-	github.com/baderkha/library v0.0.0-20220820182850-cd39086944d3
+	github.com/baderkha/library v0.0.0-20220820185102-d01fb45cce3d
 	github.com/gin-gonic/gin v1.8.1
 	gorm.io/driver/mysql v1.3.5
 	gorm.io/gorm v1.23.8
