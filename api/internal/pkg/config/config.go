@@ -42,6 +42,9 @@ type Environ struct {
 	DBPassword                     string `json:"db_password"`
 	DBPasswordFromSecrets          bool   `json:"is_db_password_from_secrets"`
 	Domain                         string `json:"domain"`
+	CookieName                     string `json:"cookie_name"`
+	ResetPasswordFrontEndURLPath   string `json:"reset_password_front_end_url_path"`
+	VerifyEmailBackendURLPath      string `json:"verify_email_backend_url_path"`
 	CookieExpiryDurationMinutes    int64  `json:"cookie_expiry_time_minutes"`
 	ResetPasswordExpiryTimeMinutes int64  `json:"reset_password_expiry_time_minutes"`
 	S3Bucket                       string `json:"bucket"`
@@ -49,6 +52,7 @@ type Environ struct {
 	AWSRegion                      string `json:"aws_region"`
 	SendGridAPIToken               string `json:"send_grid_api_token"`
 	SendGridEmail                  string `json:"send_grid_email"`
+	GoogleClientID                 string `json:"google_client_id"`
 }
 
 func Init() {

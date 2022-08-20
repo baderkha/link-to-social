@@ -124,13 +124,13 @@ func New() *RestApplication {
 			&auth.SessionConfig{
 				DB:                   config.GetDB(),
 				BasePathRoute:        "/api/v1",
-				CookieName:           "lts_login",
+				CookieName:           e.CookieName,
 				LoginExpiryTime:      dur,
 				Domain:               e.Domain,
-				FrontEndDomain:       "https://linktosocials.com",
-				PasswordResetURLFull: "https://linktosocials.com/reset-password",
+				PasswordResetURLFull: e.ResetPasswordFrontEndURLPath,
+				VerifyEmailURLFull:   e.VerifyEmailBackendURLPath,
 				SSOConfig: sso.Config{
-					GoogleClientID: "something",
+					GoogleClientID: e.GoogleClientID,
 				},
 				PasswordResetLinkDuration: dur,
 				Mailer:                    email.NewSendGridSender(e.SendGridAPIToken),
