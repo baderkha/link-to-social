@@ -13,7 +13,6 @@ import (
 	"github.com/baderkha/library/pkg/email"
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/baderkha/library/pkg/store/repository"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 )
 
@@ -92,7 +91,6 @@ func GetExpressions(ctx *gin.Context) (*rql.FilterExpression, *rql.PaginationExp
 	filterExpr, err := rql.FilterExpressionFromUserInput(filterString, isFilterBase64)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
-		spew.Dump(err)
 		return nil, nil, nil, false
 	}
 
@@ -108,7 +106,6 @@ func GetExpressions(ctx *gin.Context) (*rql.FilterExpression, *rql.PaginationExp
 	sortExpr, err := rql.SortExpressionFromUserInput(sort)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusBadRequest, NewErrorResponse(err))
-		spew.Dump(err)
 		return nil, nil, nil, false
 	}
 

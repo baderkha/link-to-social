@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/baderkha/library/pkg/store/repository"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,7 +27,6 @@ func IsResourceForAccount[t any](repo repository.ICrud[t]) gin.HandlerFunc {
 		}
 		isForAccID := repo.IsForAccountID(id, accId)
 		if isForAccID {
-			spew.Dump("here")
 			ctx.Next()
 			return
 		}

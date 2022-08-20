@@ -12,7 +12,6 @@ import (
 	"github.com/baderkha/library/pkg/conditional"
 	"github.com/baderkha/library/pkg/db"
 	"github.com/baderkha/library/pkg/json"
-	"github.com/davecgh/go-spew/spew"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -75,7 +74,6 @@ func DefaultEnv() *Environ {
 func GetEmailTemplate(typ string) []byte {
 	Init()
 	loc := (conditional.Ternary(typ == "verify", Env.VerifyAccountTemplateLoc, Env.ResetEmailTemplateLoc))
-	spew.Dump(loc)
 	b, err := os.ReadFile(loc)
 	if err != nil {
 		panic(err)
