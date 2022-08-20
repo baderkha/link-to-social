@@ -3,10 +3,12 @@ package routes
 import (
 	"link-to-social-api/internal/api/controller"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func ApplyRoutes(c *controller.RestApplication, app *gin.Engine) *gin.Engine {
+	app.Use(cors.Default())
 	app = c.ApplyRoutes(app)
 	apiv1 := app.Group("/api/v1")
 

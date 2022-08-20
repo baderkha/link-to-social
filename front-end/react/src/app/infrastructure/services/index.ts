@@ -7,9 +7,9 @@ import { ISocialApiManager, SocialRestApiManager } from "./social_api_manager";
 
 let apiManager: SocialRestApiManager;
 
-module.exports.SocialApi = (): ISocialApiManager => {
+export const SocialApi = (): ISocialApiManager => {
     if (!apiManager) {
-        let baseURL = process.env.BASE_API_URL ? process.env.BASE_API_URL : ""
+        let baseURL = process.env.BASE_API_URL ? process.env.BASE_API_URL : "http://localhost:8080/api/v1"
         // dependency injection for the other classes
         apiManager = new SocialRestApiManager({
             acc: new AccountsApi(baseURL),

@@ -1,4 +1,4 @@
-package mysql
+package sql
 
 import (
 	"link-to-social-api/internal/api/model"
@@ -13,7 +13,7 @@ type GormableEntity interface {
 }
 
 // LinkMYSQL : link mysql implementation
-type LinkMYSQL struct {
+type LinkSQL struct {
 	repository.CrudGorm[model.Link]
 }
 
@@ -28,8 +28,8 @@ func NewGorm[t GormableEntity](db *gorm.DB) repository.CrudGorm[t] {
 	}
 }
 
-func NewLink(db *gorm.DB) *LinkMYSQL {
-	return &LinkMYSQL{
+func NewLink(db *gorm.DB) *LinkSQL {
+	return &LinkSQL{
 		CrudGorm: NewGorm[model.Link](db),
 	}
 }

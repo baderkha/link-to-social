@@ -19,6 +19,7 @@ export type ErrorResponse = {
     status_code : number;
     status_message : string;
     error_message : string
+    is_error : true
 }
 
 export type SuccessResponse<T> = {
@@ -43,8 +44,8 @@ export type BaseModelResponse = {
  */
 export abstract class BaseSocialApi extends BaseRestApi {
     
-    constructor(baseURL : string) {
-        super(baseURL)
+    constructor(baseURL : string , baseUrlForBaseAxios : string = "") {
+        super(baseURL, baseUrlForBaseAxios)
     }
 
     /**
@@ -53,10 +54,12 @@ export abstract class BaseSocialApi extends BaseRestApi {
      * @returns 
      */
     protected handleErr (err : AxiosError) : ErrorResponse {
+        let errorMessage = (err.response?.data as any).error_message as string
         return {
-            error_message : (err.response?.data as any).error_message as string,
+            error_message : errorMessage ? errorMessage :(err.response?.data as any).message,
             status_message : STATUS_CODE_MAP[err.response?.status as number] , 
-            status_code : err.response?.status as number
+            status_code : err.response?.status as number,
+            is_error : true
         }
     }
 

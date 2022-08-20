@@ -2,14 +2,14 @@ package repo
 
 import (
 	"link-to-social-api/internal/api/model"
-	"link-to-social-api/internal/api/repo/mysql"
+	"link-to-social-api/internal/api/repo/sql"
 
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/baderkha/library/pkg/store/repository"
 )
 
 var (
-	_ IMedia = &mysql.MediaMYSQL{}
+	_ IMedia = &sql.MediaSQL{}
 )
 
 const (

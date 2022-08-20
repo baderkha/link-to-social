@@ -9,10 +9,16 @@ import { Input, ExitToApp  , PermIdentityTwoTone} from "@material-ui/icons"
 export const NavBar = ({ isLoggedIn = false , hidden = false }) => {
   const externalLinks = [
     {
+      label: "+ Create",
+      icon: PermIdentityTwoTone,
+      link: "/build-page"
+    },
+    {
       label: "Profile",
       icon: PermIdentityTwoTone,
       link: "/profile"
-    }
+    },
+    
   ]
   const links = {
     internal: externalLinks

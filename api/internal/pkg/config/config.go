@@ -34,18 +34,21 @@ var (
 
 // Environ : config that mimics hte schema of the env json
 type Environ struct {
-	DBHost                      string `json:"db_host"`
-	DBPort                      string `json:"db_port"`
-	DBSchema                    string `json:"db_schema"`
-	DBFlavour                   string `json:"db_flavour"`
-	DBUserName                  string `json:"db_user_name"`
-	DBPassword                  string `json:"db_password"`
-	DBPasswordFromSecrets       bool   `json:"is_db_password_from_secrets"`
-	Domain                      string `json:"domain"`
-	CookieExpiryDurationMinutes int64  `json:"cookie_expiry_time_minutes"`
-	S3Bucket                    string `json:"bucket"`
-	HTTPPort                    string `json:"http_port"`
-	AWSRegion                   string `json:"aws_region"`
+	DBHost                         string `json:"db_host"`
+	DBPort                         string `json:"db_port"`
+	DBSchema                       string `json:"db_schema"`
+	DBFlavour                      string `json:"db_flavour"`
+	DBUserName                     string `json:"db_user_name"`
+	DBPassword                     string `json:"db_password"`
+	DBPasswordFromSecrets          bool   `json:"is_db_password_from_secrets"`
+	Domain                         string `json:"domain"`
+	CookieExpiryDurationMinutes    int64  `json:"cookie_expiry_time_minutes"`
+	ResetPasswordExpiryTimeMinutes int64  `json:"reset_password_expiry_time_minutes"`
+	S3Bucket                       string `json:"bucket"`
+	HTTPPort                       string `json:"http_port"`
+	AWSRegion                      string `json:"aws_region"`
+	SendGridAPIToken               string `json:"send_grid_api_token"`
+	SendGridEmail                  string `json:"send_grid_email"`
 }
 
 func Init() {

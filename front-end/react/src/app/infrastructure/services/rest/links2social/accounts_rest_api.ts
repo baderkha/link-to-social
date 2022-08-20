@@ -1,10 +1,11 @@
+import { AxiosInstance } from "axios";
 import { BaseSocialApi, SuccessResponse } from "./base_social_api";
 import { ErrorResponse , BaseModelResponse } from "./base_social_api";
 
 /**
  * Account Response from backend
  */
-type Account = BaseModelResponse & {
+export type Account = BaseModelResponse & {
     email:      string;
     password:   string;
 }
@@ -16,8 +17,8 @@ type Account = BaseModelResponse & {
 export class AccountsApi extends BaseSocialApi {
    
     constructor(BaseURL : string) {
-        super(BaseURL + '/accounts')
-        
+        super(BaseURL + '/accounts',BaseURL)
+    
     }
 
     /**
@@ -33,7 +34,7 @@ export class AccountsApi extends BaseSocialApi {
         first_name : string , 
         last_name : string
     }) : Promise<boolean|ErrorResponse> {
-        return  this.axios.
+        return  this._getClient().
         post('', { ...details }).
         then(() => true).
         catch((err ) => this.handleErr(err))
@@ -61,8 +62,8 @@ export class AccountsApi extends BaseSocialApi {
     pwdStrength(details : {
         password : string
     }) : Promise<boolean | ErrorResponse> {
-        return this.axios.
-        post('/accounts/password-strength/check',{...details}).
+        return this.axiosBase.
+        post('/password-strength/check',{...details}).
         then(()=>true).
         catch((err)=>this.handleErr(err))
     }

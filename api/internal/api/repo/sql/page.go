@@ -1,4 +1,4 @@
-package mysql
+package sql
 
 import (
 	"link-to-social-api/internal/api/model"
@@ -8,12 +8,12 @@ import (
 )
 
 // PageMYSQL repository
-type PageMYSQL struct {
+type PageSQL struct {
 	repository.CrudGorm[model.Page]
 }
 
-func NewPage(db *gorm.DB) *PageMYSQL {
-	return &PageMYSQL{
+func NewPage(db *gorm.DB) *PageSQL {
+	return &PageSQL{
 		CrudGorm: NewGorm[model.Page](db),
 	}
 }

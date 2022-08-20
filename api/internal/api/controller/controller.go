@@ -3,12 +3,14 @@ package controller
 import (
 	"errors"
 	"fmt"
-	"link-to-social-api/internal/api/repo/mysql"
+	"link-to-social-api/internal/api/repo/sql"
 	"link-to-social-api/internal/pkg/config"
 	"net/http"
 	"time"
 
 	"github.com/baderkha/library/pkg/controller/gin/auth"
+	"github.com/baderkha/library/pkg/controller/gin/auth/sso"
+	"github.com/baderkha/library/pkg/email"
 	"github.com/baderkha/library/pkg/rql"
 	"github.com/baderkha/library/pkg/store/repository"
 	"github.com/davecgh/go-spew/spew"
@@ -119,20 +121,31 @@ func New() *RestApplication {
 
 	return &RestApplication{
 		SessionAuthGinController: *auth.NewGinSessionAuthGorm(
-			config.GetDB(),
-			"/api/v1",
-			"lts_login",
-			dur,
-			e.Domain,
+			&auth.SessionConfig{
+				DB:                   config.GetDB(),
+				BasePathRoute:        "/api/v1",
+				CookieName:           "lts_login",
+				LoginExpiryTime:      dur,
+				Domain:               e.Domain,
+				FrontEndDomain:       "https://linktosocials.com",
+				PasswordResetURLFull: "https://linktosocials.com/reset-password",
+				SSOConfig: sso.Config{
+					GoogleClientID: "something",
+				},
+				PasswordResetLinkDuration: dur,
+				Mailer:                    email.NewSendGridSender(e.SendGridAPIToken),
+				EmailSender:               e.SendGridEmail,
+				EmailSenderUserFriendly:   "Link To Socials",
+			},
 		),
 		Link: Link{
-			repo: mysql.NewLink(config.GetDB()),
+			repo: sql.NewLink(config.GetDB()),
 		},
 		Page: Page{
-			repo: mysql.NewPage(config.GetDB()),
+			repo: sql.NewPage(config.GetDB()),
 		},
 		Images: Media{
-			mRepo:    mysql.NewImageMedia(config.GetDB()),
+			mRepo:    sql.NewImageMedia(config.GetDB()),
 			s3:       config.GetS3(),
 			s3Prefix: "/assets",
 			bucket:   e.S3Bucket,
@@ -142,7 +155,7 @@ func New() *RestApplication {
 			},
 		},
 		Videos: Media{
-			mRepo:    mysql.NewVideoMedia(config.GetDB()),
+			mRepo:    sql.NewVideoMedia(config.GetDB()),
 			s3:       config.GetS3(),
 			s3Prefix: "/assets",
 			bucket:   e.S3Bucket,
@@ -152,7 +165,7 @@ func New() *RestApplication {
 			},
 		},
 		Files: Media{
-			mRepo:    mysql.NewFileMedia(config.GetDB()),
+			mRepo:    sql.NewFileMedia(config.GetDB()),
 			s3:       config.GetS3(),
 			s3Prefix: "/assets",
 			bucket:   e.S3Bucket,

@@ -1,4 +1,4 @@
-import { AccountsApi } from "./rest/links2social/accounts_rest_api";
+import { Account, AccountsApi } from "./rest/links2social/accounts_rest_api";
 import { AuthenticationApi, } from "./rest/links2social/auth_rest_api";
 import { LinkRestApi, Link } from "./rest/links2social/links_rest_api";
 import { MediaRestApi } from "./rest/links2social/media_rest_api";
@@ -31,6 +31,14 @@ export interface ISocialApiManager {
      * Log user into the system
      */
     login: (details: { user_name: string; password: string; }) => Promise<boolean>;
+    /**
+     *  get Account information for an id
+     */
+    getAccount : (details : {account_id : string}) => Promise < SuccessResponse<Account> | ErrorResponse>;
+    /**
+     *  Check if accountID exists in the backend
+     */
+    accountIdExists (details : {account_id : string}) : Promise<boolean>
     /**
      * Log user out of the system
      */
@@ -97,6 +105,10 @@ export class SocialRestApiManager implements ISocialApiManager {
      * Register user to the system
      */
     register: (details: { id: string; email: string; password: string; date_of_birth: Date; first_name: string; last_name: string; }) => Promise<boolean | ErrorResponse>;
+     /**
+     *  get Account information for an id
+     */
+    getAccount: (details: { account_id: string; }) => Promise<SuccessResponse<Account> | ErrorResponse>
     /**
      * Log user into the system
      */
@@ -156,32 +168,41 @@ export class SocialRestApiManager implements ISocialApiManager {
 
         // API FACADE BLOCK
         {
-            this.pwdStrength = this._acc.pwdStrength
-            this.register = this._acc.register
+            this.pwdStrength = this._acc.pwdStrength.bind(this._acc)
+            this.register = this._acc.register.bind(this._acc)
+            this.getAccount = this._acc.getAccount.bind(this._acc)
 
             // // auth facade
-            this.login = this._auth.login
-            this.logout = this._auth.logout
+            this.login = this._auth.login.bind(this._auth)
+            this.logout = this._auth.logout.bind(this._auth)
 
    
-            this.newLink = this._link.NewLink
-            this.editLink = this._link.EditLink
-            this.deleteLink = this._link.DeleteLink
-            this.getLinksForPage = this._link.GetLinksForPageId
-            this.getLinksById = this._link.GetLinkById
+            this.newLink = this._link.NewLink.bind(this._link)
+            this.editLink = this._link.EditLink.bind(this._link)
+            this.deleteLink = this._link.DeleteLink.bind(this._link)
+            this.getLinksForPage = this._link.GetLinksForPageId.bind(this._link)
+            this.getLinksById = this._link.GetLinkById.bind(this._link)
 
    
-            this.getMainPage = this._page.GetMainPage
-            this.getPageById = this._page.GetPageById
-            this.newPage = this._page.NewPage
-            this.editPage = this._page.EditPage
-            this.deletePage = this._page.DeletePage
+            this.getMainPage = this._page.GetMainPage.bind(this._page)
+            this.getPageById = this._page.GetPageById.bind(this._page)
+            this.newPage = this._page.NewPage.bind(this._page)
+            this.editPage = this._page.EditPage.bind(this._page)
+            this.deletePage = this._page.DeletePage.bind(this._page)
         }
         // API FACADE BLOCK END
 
         
 
     }
+
+    accountIdExists (details : {account_id : string}) : Promise<boolean> {
+        return this.getAccount(details).then((data)=>{
+            let d = data as ErrorResponse
+            return !d.is_error
+        })
+    }
+   
 
 
 }

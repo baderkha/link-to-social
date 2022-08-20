@@ -38,14 +38,14 @@ export const Link = (l: LinkProp) => {
         window.location.href = url
     }
     return (
-        <div style={{width:"100%" , marginBottom:"20px"}}>
+        <div style={{width:"100%" , marginBottom:"20px" , display:"flex" , justifyContent:"center"}}>
         <Button  variant="contained"
         disableElevation = {true}
         className = {classes.root}
         
        
          startIcon={<Avatar variant="square" src={thumbUrl} draggable 
-          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none"    }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none"}}><Typography style={{marginLeft:"-48px"}}> {label} </Typography></Button>
+          style={{ width: "48px", height: "48px" , borderRadius:"0px" , boxShadow:"none" ,  }} />} endIcon={<div></div>} style={{ width: "100%" , display:"flex" , justifyContent:"space-between" , border:"none" ,  maxWidth:"700px" }}><Typography style={{marginLeft:"-48px"}}> {label} </Typography></Button>
         </div>
     )   
 }
@@ -53,7 +53,7 @@ export const Link = (l: LinkProp) => {
 export const LinkCollection = (l: LinkCollectionProp) => {
     let {height , links , width} = l
     return (
-        <div style={{width , height }}>
+        <div style={{width , height  }}>
             {links.map((linkProp) => <Link {...linkProp}/>)}
         </div>
     )

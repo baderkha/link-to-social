@@ -2,7 +2,7 @@ package controller
 
 import (
 	"link-to-social-api/internal/api/model"
-	"link-to-social-api/internal/api/repo/mysql"
+	"link-to-social-api/internal/api/repo/sql"
 	"link-to-social-api/internal/pkg/config"
 	"net/http"
 
@@ -12,11 +12,11 @@ import (
 )
 
 var (
-	IsLinkForAccount  = IsResourceForAccount[model.Link](mysql.NewLink(config.GetDB()))
-	IsPageForAccount  = IsResourceForAccount[model.Page](mysql.NewPage(config.GetDB()))
-	IsImageForAccount = IsResourceForAccount[model.Media](mysql.NewImageMedia(config.GetDB()))
-	IsFileForAccount  = IsResourceForAccount[model.Media](mysql.NewFileMedia(config.GetDB()))
-	IsVideoForAccount = IsResourceForAccount[model.Media](mysql.NewVideoMedia(config.GetDB()))
+	IsLinkForAccount  = IsResourceForAccount[model.Link](sql.NewLink(config.GetDB()))
+	IsPageForAccount  = IsResourceForAccount[model.Page](sql.NewPage(config.GetDB()))
+	IsImageForAccount = IsResourceForAccount[model.Media](sql.NewImageMedia(config.GetDB()))
+	IsFileForAccount  = IsResourceForAccount[model.Media](sql.NewFileMedia(config.GetDB()))
+	IsVideoForAccount = IsResourceForAccount[model.Media](sql.NewVideoMedia(config.GetDB()))
 )
 
 func IsResourceForAccount[t any](repo repository.ICrud[t]) gin.HandlerFunc {
