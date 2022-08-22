@@ -60,10 +60,6 @@ func (l *Link) NewLink(ctx *gin.Context) {
 
 func (l *Link) UpdateLink(ctx *gin.Context) {
 	id := ctx.Param("id")
-	if !l.repo.IsForAccountID(id, GetAccountId(ctx)) {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(errorResourceNotForUser))
-		return
-	}
 	var link model.Link
 	err := ctx.ShouldBindJSON(&link)
 	if err != nil {
@@ -81,10 +77,6 @@ func (l *Link) UpdateLink(ctx *gin.Context) {
 
 func (l *Link) DeleteLink(ctx *gin.Context) {
 	id := ctx.Param("id")
-	if !l.repo.IsForAccountID(id, GetAccountId(ctx)) {
-		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(errorResourceNotForUser))
-		return
-	}
 	err := l.repo.DeleteById(id)
 	if err != nil {
 		ctx.AbortWithStatusJSON(http.StatusInternalServerError, NewErrorResponse(err))

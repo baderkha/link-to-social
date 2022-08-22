@@ -20,5 +20,6 @@ func main() {
 	db.Table("image_media").AutoMigrate(&model.Media{})
 	db.Table("file_media").AutoMigrate(&model.Media{})
 	db.Table("video_media").AutoMigrate(&model.Media{})
+	db.AutoMigrate(&model.HashVerificationAccount{})
 	fmt.Println("COMPLETED DB MIGRATION")
 }

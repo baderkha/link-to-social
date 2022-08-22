@@ -3,5 +3,5 @@ shutdown-db:
 init-db:
 	cd docker && docker-compose up -d
 run-local:
-	ENV_FILE=env.local.json go run scripts/migration/main.go
-	IS_LOCAL=TRUE ENV_FILE=env.local.json go run cmd/local/api/main.go 
+	ENV_FILE=.env.local.json go run scripts/migration/main.go
+	IS_LOCAL=TRUE ENV_FILE=.env.local.json go run -race cmd/local/api/main.go 

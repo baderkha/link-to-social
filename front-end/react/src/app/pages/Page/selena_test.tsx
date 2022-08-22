@@ -63,5 +63,9 @@ export const SelenaDummyLinks: PageProps = {
             url: "https://google.com",
             thumbUrl: "https://d1fdloi71mui9q.cloudfront.net/85JqpOdgQ7mu90iSSqTT_1TXaVw6XYvq0dFYa"
         }
-    ]
+    ],
+    bodyStyle: {
+        backgroundColor: "#FAACA8",
+        backgroundImage: "linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%)"
+    }
 }

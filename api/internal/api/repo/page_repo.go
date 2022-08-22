@@ -2,13 +2,17 @@ package repo
 
 import (
 	"link-to-social-api/internal/api/model"
-	"link-to-social-api/internal/api/repo/mysql"
+	"link-to-social-api/internal/api/repo/sql"
 
 	"github.com/baderkha/library/pkg/store/repository"
 )
 
 var (
-	_ IPage = &mysql.PageMYSQL{}
+	_ IPage = &sql.PageSQL{}
+)
+
+const (
+	Page = "page_repository"
 )
 
 // Page : page repository specification

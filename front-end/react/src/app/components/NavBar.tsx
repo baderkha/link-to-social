@@ -6,20 +6,27 @@ import { Input, ExitToApp  , PermIdentityTwoTone} from "@material-ui/icons"
 
 
 
-export const NavBar = ({ isLoggedIn = false }) => {
+export const NavBar = ({ isLoggedIn = false , hidden = false }) => {
   const externalLinks = [
+    {
+      label: "+ Create",
+      icon: PermIdentityTwoTone,
+      link: "/build-page"
+    },
     {
       label: "Profile",
       icon: PermIdentityTwoTone,
       link: "/profile"
-    }
+    },
+    
   ]
   const links = {
     internal: externalLinks
   }
   return (
-
+      <div style={{display:hidden ? "none":"",marginBottom:"55px"}}>
       <MaterialUINav
+        
 
         global={{
           siteTitle: " ",
@@ -36,6 +43,7 @@ export const NavBar = ({ isLoggedIn = false }) => {
         }}
         links={links}
       />
+      </div>
     
   )
 }
