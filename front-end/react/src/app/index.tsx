@@ -8,6 +8,7 @@ import { SelenaDummyLinks } from './pages/Page/selena_test';
 import { Logo } from './components/Logo';
 import { RemoveScrollBar } from 'react-remove-scroll-bar';
 import Builder from './pages/Builder/Builder';
+import { Explore } from './pages/Explore/Explore'
 import { EmptyLinks } from './pages/Page/blank_page';
 import { useEffect } from 'react-transition-group/node_modules/@types/react';
 import MiniDrawer from './components/Nav';
@@ -67,6 +68,7 @@ export const App: FC<any> = props => {
               <Route path="/:id" element={<Page {...SelenaDummyLinks} />} />
 
               <Route path="/test" element={<MiniDrawer />} />
+              <Route path="/explore" element={<Explore />} />
             </Routes>
           </div>
         </div>

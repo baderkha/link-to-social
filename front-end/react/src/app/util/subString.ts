@@ -1,0 +1,1 @@
+export const isSubstring = (fullString: string, substring: string) => fullString.toLowerCase().includes(substring.toLowerCase());
