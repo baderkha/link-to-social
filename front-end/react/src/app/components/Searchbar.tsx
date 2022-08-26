@@ -1,7 +1,7 @@
 import { TextField, Icon } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
-import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 

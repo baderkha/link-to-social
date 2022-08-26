@@ -1,42 +1,75 @@
-import React, { useState } from "react"
-import SearchBar from "../../components/Searchbar"
-import { isSubstring } from "../../util/subString"
+import React, { useState } from "react";
+import SearchBar from "../../components/Searchbar";
+import { isSubstring } from "../../util/subString";
+import { SelenaDummyLinks } from '../Page/selena_test';
+import { Card, CardActionArea, CardActions, CardMedia, CardContent, Typography, Button, Grid } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 
 export type ExploreProps = {
 
 }
-const dummyExploreData = [
-    {
-        image: 'poop',
-        profileName: 'pooper',
-        more: 'poopy'
-    },
 
-]
+const useStyles = makeStyles<Theme, ExploreProps>((theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1,
+        },
+        cardRoot: {
+            maxWidth: 345,
+          },
+          media: {
+            height: 140,
+            backgroundPosition: 'top'
+          },
+    }),
+);
 
-export const Explore = () => {
+export const Explore = (props: ExploreProps) => {
+    const {} = props;
+    let classes = useStyles(props)
 
     const [searchQuery, setSearchQuery] = useState("")
 
-    const filteredExplore = dummyExploreData.filter(
+    const filteredExplore = SelenaDummyLinks.links.filter(
         data => 
-        isSubstring(data.image || '', searchQuery) ||
-        isSubstring(data.profileName || '', searchQuery) ||
-        isSubstring(data.more || '', searchQuery)
+        isSubstring(data.label || '', searchQuery) ||
+        isSubstring(data.thumbUrl || '', searchQuery) ||
+        isSubstring(data.url || '', searchQuery)
     )
     return (
-        <div>
-            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-            {filteredExplore.map((el) => {
-              return (
-                <div>
-                    {el.image}
-                    {el.profileName}
-                    {el.more}
-                </div>
-              )  
-            })}
+        <div className={classes.root}>
+            <Grid container spacing={3} >
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                {filteredExplore.map((el) => {
+                return (
+                    <Grid item xs={3}>
+                        <Card className={classes.cardRoot}>
+                            <CardActionArea>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={el.thumbUrl}
+                                    title="Selena is Bae"
+                                    />
+                                <CardContent>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {el.label}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                <Button size="small" color="primary">
+                                Use Theme
+                                </Button>
+                                <Button size="small" color="primary">
+                                Learn More
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                )  
+                })}
+            </Grid>
         </div>
     )
 }
