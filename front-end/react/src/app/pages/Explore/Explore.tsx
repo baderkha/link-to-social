@@ -41,10 +41,10 @@ export const Explore = (props: ExploreProps) => {
         <div className={classes.root}>
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             <div style={{width: "100%"}}>
-            <Grid container spacing={3} >
+            <Grid container spacing={4} >
                 {filteredExplore.map((el) => {
                 return (
-                    <Grid item xs={3}>
+                    <Grid item xs={4} style={{display:"flex",justifyContent:"center"}}>
                         <Card className={classes.cardRoot}>
                             <CardActionArea>
                                 <CardMedia
