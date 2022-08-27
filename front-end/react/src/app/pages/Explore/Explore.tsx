@@ -39,8 +39,9 @@ export const Explore = (props: ExploreProps) => {
     )
     return (
         <div className={classes.root}>
+            <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+            <div style={{width: "100%"}}>
             <Grid container spacing={3} >
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
                 {filteredExplore.map((el) => {
                 return (
                     <Grid item xs={3}>
@@ -69,7 +70,8 @@ export const Explore = (props: ExploreProps) => {
                     </Grid>
                 )  
                 })}
-            </Grid>
+                </Grid>
+            </div>
         </div>
     )
 }
